@@ -1,6 +1,6 @@
 ```
 devops/
-├── aws                                  **  aws**
+├── aws                                  **aws**
 │   ├── aws-rds-modify.sh               批量更新aws正式
 │   ├── checkphd.sh                     aws健康检查通知
 │   ├── cmdb.sh                         各云服cmdb信息调用
