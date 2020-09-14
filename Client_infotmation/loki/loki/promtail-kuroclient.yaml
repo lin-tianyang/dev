@@ -1,0 +1,32 @@
+server:
+  http_listen_port: 9081
+  grpc_listen_port: 0
+
+
+clients:
+  - url: http://xxx:3100/loki/api/v1/push
+ 
+scrape_configs:
+  - job_name: kurotest1log
+    pipeline_stages:
+    static_configs:
+    - labels:
+       job: kuroclient-errlog
+       app: client-errlog-01
+       node: 001
+       host: 192.168.0.30
+       __path__: /home/log/client_log/*/*.log
+
+  - job_name: kuro_playerlog
+    pipeline_stages:
+    static_configs:
+    - labels:
+       job: kuro-playerlog
+       app: kuro-playerlog-01
+       node: 001
+       host: 192.168.0.30
+       __path__: /home/log/player_log/*/*.log
+
+    
+
+

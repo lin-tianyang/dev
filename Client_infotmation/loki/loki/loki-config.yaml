@@ -1,0 +1,44 @@
+auth_enabled: false
+server:
+  http_listen_port: 3100 
+ingester:
+  lifecycler:
+    address: 0.0.0.0
+    ring:
+      kvstore:
+        store: inmemory
+      replication_factor: 1
+    final_sleep: 0s
+  chunk_idle_period: 5m
+  chunk_retain_period: 30s
+  max_transfer_retries: 0 
+schema_config:
+  configs:
+    - from: 2020-07-27
+      store: boltdb
+      object_store: filesystem
+      schema: v11
+      index:
+        prefix: index_
+        #每张表的时间范围 6天
+        period: 144h
+      chunks:
+        period: 144h 
+storage_config:
+#流文件存储地址
+  boltdb:
+    directory: /data/loki/index
+#索引存储地址
+  filesystem:
+    directory: /data/loki/chunks 
+limits_config:
+  enforce_metric_name: false
+  reject_old_samples: true
+  reject_old_samples_max_age: 144h 
+chunk_store_config:
+ #最大可查询历史日期 90天
+ max_look_back_period: 2160h 
+#表的保留期90天
+table_manager:
+  retention_deletes_enabled: true
+  retention_period: 2160h
